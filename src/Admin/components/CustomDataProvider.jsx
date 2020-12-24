@@ -10,8 +10,8 @@ import {
     UPDATE,
     UPDATE_MANY,
 } from 'react-admin';
-import axios from "axios";
-import { userService } from "../../services/user.service"
+import axios from 'axios';
+import { userService } from '../../services/user.service';
 import { authHeader } from '../../helpers';
 
 /**
@@ -37,7 +37,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         options.headers = authHeader();
         switch (type) {
             case GET_LIST: {
-                const {page, perPage} = params.pagination;
+                const { page, perPage } = params.pagination;
                 options.url = `${apiUrl}/${resource}?page=${page}&pageSize=${perPage}`;
                 options.method = 'GET';
                 break;
@@ -48,7 +48,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             }
             case GET_MANY: {
-                JSON.stringify({id: params.ids});
+                JSON.stringify({ id: params.ids });
                 let idStr = '';
                 params.ids.map((id) => idStr + `id=${id}`);
                 options.url = `${apiUrl}/${resource}?${idStr}}`;
@@ -56,19 +56,19 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             }
             case GET_MANY_REFERENCE: {
-                const {page, perPage} = params.pagination;
+                const { page, perPage } = params.pagination;
                 options.url = `${apiUrl}/${resource}?page=${page}&pageSize=${perPage}`;
                 break;
             }
             case UPDATE:
                 options.url = `${apiUrl}/${resource}/${params.id}`;
                 options.method = 'PUT';
-                options.data = JSON.stringify(params.data);
+                options.data = params.data;
                 break;
             case CREATE:
                 options.url = `${apiUrl}/${resource}`;
                 options.method = 'POST';
-                options.data = JSON.stringify(params.data);
+                options.data = params.data;
                 break;
             case DELETE:
                 options.url = `${apiUrl}/${resource}/${params.id}`;
@@ -102,9 +102,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                     total: parseInt(json.length, 10),
                 };
             case CREATE:
-                return {data: {...params.data, id: 0}};
+                return { data: { ...params.data, id: 0 } };
             default:
-                return {data: json};
+                return { data: json };
         }
     };
 
@@ -128,19 +128,16 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         // simple-rest doesn't handle filters on DELETE route, so we fallback to calling DELETE n times instead
         if (type === DELETE_MANY) {
             return Promise.all(
-                params.ids.map((id) =>
-                    userService.delete(id)
-                )
+                params.ids.map((id) => {
+                    debugger;
+                    return userService.delete(id);
+                })
             ).then((responses) => ({
                 data: responses.map((response) => response.json),
             }));
         }
 
-        const {options} = convertDataRequestToHTTP(
-            type,
-            resource,
-            params
-        );
+        const { options } = convertDataRequestToHTTP(type, resource, params);
         const header = authHeader();
         return axios(options).then((response) =>
             convertHTTPResponse(response, type, resource, params)
