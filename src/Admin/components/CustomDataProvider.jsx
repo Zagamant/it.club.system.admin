@@ -119,10 +119,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         if (type === UPDATE_MANY) {
             return Promise.all(
                 params.ids.map((id) =>
-                    userService.update(JSON.stringify(params.data))
+                    userService.update(params.data)
                 )
             ).then((responses) => ({
-                data: responses.map((response) => response.json),
+                data: responses.map((response) => response.data),
             }));
         }
         // simple-rest doesn't handle filters on DELETE route, so we fallback to calling DELETE n times instead
@@ -133,7 +133,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                     return userService.delete(id);
                 })
             ).then((responses) => ({
-                data: responses.map((response) => response.json),
+                data: responses.map((response) => response.data),
             }));
         }
 

@@ -5,6 +5,7 @@ import {
     Create,
     Datagrid,
     DateField,
+    DateInput,
     Edit,
     EditButton,
     EmailField,
@@ -21,17 +22,24 @@ import {
 export const UserList = (props) => (
     <List {...props}>
         <Datagrid rowClick="edit">
-            <TextField source="id"/>
-            <FunctionField render={record => `${record.name} ${record.middleName} ${record.surname}`}/>
-            <DateField source="birthDay" options={{year: 'numeric', month: 'long', day: 'numeric'}}/>
-            <TextField source="address"/>
-            <TextField source="additionalInfo"/>
-            <TextField source="userName"/>
-            <EmailField source="email"/>
-            <TextField source="phoneNumber"/>
-            <BooleanField source="lockoutEnabled"/>
-            <ImageField source="photos"/>
-            <EditButton/>
+            <TextField source="id" />
+            <FunctionField
+                render={(record) =>
+                    `${record.name} ${record.middleName} ${record.surname}`
+                }
+            />
+            <DateField
+                source="birthDay"
+                options={{ year: 'numeric', month: 'long', day: 'numeric' }}
+            />
+            <TextField source="address" />
+            <TextField source="additionalInfo" />
+            <TextField source="userName" />
+            <EmailField source="email" />
+            <TextField source="phoneNumber" />
+            <BooleanField source="lockoutEnabled" />
+            <ImageField source="photos" />
+            <EditButton />
         </Datagrid>
     </List>
 );
@@ -39,19 +47,22 @@ export const UserList = (props) => (
 export const UserEdit = (props) => (
     <Edit {...props}>
         <SimpleForm>
-            <TextInput disabled source="id"/>
-            <TextInput source="name"/>
-            <TextInput source="middleName"/>
-            <TextInput source="surname"/>
-            <PasswordInput source="password"/>
-            <DateField source="birthDay" options={{year: 'numeric', month: 'long', day: 'numeric'}}/>
-            <TextInput source="address"/>
-            <TextInput source="additionalInfo"/>
-            <TextInput source="userName"/>
-            <TextInput source="email"/>
-            <TextInput source="phoneNumber"/>
-            <BooleanInput source="lockoutEnabled"/>
-            <ImageInput source="photos"/>
+            <TextInput disabled source="id" />
+            <TextInput source="name" />
+            <TextInput source="middleName" />
+            <TextInput source="surname" />
+            <PasswordInput source="password" />
+            <DateInput
+                source="birthDay"
+                options={{ year: 'numeric', month: 'long', day: 'numeric' }}
+            />
+            <TextInput source="address" />
+            <TextInput source="additionalInfo" />
+            <TextInput source="userName" />
+            <TextInput source="email" />
+            <TextInput source="phoneNumber" />
+            <BooleanInput source="lockoutEnabled" />
+            <ImageInput source="photos" />
         </SimpleForm>
     </Edit>
 );
@@ -59,18 +70,14 @@ export const UserEdit = (props) => (
 export const UserCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="name"/>
-            <TextInput source="middleName"/>
-            <TextInput source="surname"/>
-            <TextInput source="password"/>
-            <DateField source="birthDay"/>
-            <TextInput source="address"/>
-            <TextInput source="additionalInfo"/>
-            <TextInput source="userName"/>
-            <TextInput source="email"/>
-            <TextInput source="phoneNumber"/>
-            <BooleanInput source="lockoutEnabled"/>
-            <ImageInput source="photos"/>
+            <TextInput source="name" />
+            <TextInput source="middleName" />
+            <TextInput source="surname" />
+            <TextInput source="password" />
+            <DateField source="birthDay" />
+            <TextInput source="userName" />
+            <TextInput source="email" />
+            <TextInput source="phoneNumber" />
         </SimpleForm>
     </Create>
 );
