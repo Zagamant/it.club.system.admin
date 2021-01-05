@@ -3,7 +3,6 @@ import {
     ChipField,
     Create,
     Datagrid,
-    DateField,
     DeleteButton,
     Edit,
     EditButton,
@@ -65,7 +64,7 @@ export const ClubShow = (props) => (
                         <SelectInput
                             source="Status"
                             choices={[
-                                { id: 'pendingStart', name: 'PendingStart' },
+                                { id: 'pendingStart', name: 'Pending start' },
                                 { id: 'open', name: 'Open' },
                                 { id: 'closed', name: 'Closed' },
                             ]}
@@ -120,14 +119,15 @@ export const ClubEdit = (props) => (
 export const ClubCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <TextInput source="name" />
-            <TextInput source="middleName" />
-            <TextInput source="surname" />
-            <TextInput source="password" />
-            <DateField source="birthDay" />
-            <TextInput source="userName" />
-            <TextInput source="email" />
-            <TextInput source="phoneNumber" />
+            <TextInput source="title" />
+            <SelectInput
+                source="Status"
+                choices={[
+                    { id: 'pendingStart', name: 'Pending start' },
+                    { id: 'open', name: 'Open' },
+                    { id: 'closed', name: 'Closed' },
+                ]}
+            />
         </SimpleForm>
     </Create>
 );
