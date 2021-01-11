@@ -8,7 +8,6 @@ import {
     EditButton,
     List,
     NumberField,
-    ReferenceManyField,
     SelectInput,
     Show,
     SimpleForm,
@@ -17,6 +16,10 @@ import {
     TabbedShowLayout,
     TextField,
     TextInput,
+    ArrayField,
+    TabbedForm,
+    NumberInput,
+    FormTab
 } from 'react-admin';
 
 export const ClubList = (props) => (
@@ -40,21 +43,18 @@ export const ClubShow = (props) => (
                 <TextField source="status" />
             </Tab>
             <Tab label="permissions">
-                <ReferenceManyField
-                    reference="permissions"
-                    target="clubId"
-                    addLabel={false}
+                <ArrayField
+                    source="permissions"
                 >
-                    <SingleFieldList>
-                        <ChipField source="name" />
-                    </SingleFieldList>
-                </ReferenceManyField>
+                    <Datagrid>
+                        <TextField source="id" />
+                        <TextField source="name" />
+                    </Datagrid>
+                </ArrayField>
             </Tab>
             <Tab label="rooms">
-                <ReferenceManyField
-                    reference="rooms"
-                    target="clubId"
-                    addLabel={false}
+                <ArrayField
+                    source="rooms"
                 >
                     <Datagrid>
                         <TextField source="id" />
@@ -71,7 +71,7 @@ export const ClubShow = (props) => (
                         />
                         <EditButton />
                     </Datagrid>
-                </ReferenceManyField>
+                </ArrayField>
             </Tab>
         </TabbedShowLayout>
     </Show>
@@ -79,40 +79,36 @@ export const ClubShow = (props) => (
 
 export const ClubEdit = (props) => (
     <Edit {...props}>
-        <TabbedShowLayout>
-            <Tab label="Summary">
+        <TabbedForm>
+            <FormTab  label="Summary">
                 <TextInput disabled source="id" />
-                <TextField source="title" />
-                <TextField source="status" />
-            </Tab>
-            <Tab label="permissions">
-                <ReferenceManyField
-                    reference="permissions"
-                    target="clubId"
-                    addLabel={false}
-                >
-                    <SingleFieldList>
-                        <ChipField source="name" />
-                    </SingleFieldList>
-                </ReferenceManyField>
-            </Tab>
-            <Tab label="rooms">
-                <ReferenceManyField
-                    reference="rooms"
-                    target="clubId"
-                    addLabel={false}
+                <TextInput source="title" />
+                <TextInput source="status" />
+            </FormTab >
+            <FormTab  label="permissions">
+                <ArrayField
+                    source="permissions"
                 >
                     <Datagrid>
                         <TextField source="id" />
-                        <NumberField source="capacity" />
-                        <TextField source="RoomNumber" />
-                        <TextField source="About" />
-                        <TextField source="Status" />
-                        <EditButton />
+                        <TextField source="name" />
                     </Datagrid>
-                </ReferenceManyField>
-            </Tab>
-        </TabbedShowLayout>
+                </ArrayField>
+            </FormTab>
+            <FormTab label="rooms">
+                <ArrayField
+                    source="rooms"
+                >
+                    <Datagrid>
+                        <TextInput source="id" />
+                        <NumberInput source="capacity" />
+                        <TextInput source="RoomNumber" />
+                        <TextInput source="About" />
+                        <TextInput source="Status" />
+                    </Datagrid>
+                </ArrayField>
+            </FormTab>
+        </TabbedForm>
     </Edit>
 );
 
