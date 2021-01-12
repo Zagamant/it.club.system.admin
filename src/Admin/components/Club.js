@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    ChipField,
     Create,
     Datagrid,
     DeleteButton,
@@ -11,14 +10,14 @@ import {
     SelectInput,
     Show,
     SimpleForm,
-    SingleFieldList,
+    SelectArrayInput,
     Tab,
     TabbedShowLayout,
     TextField,
     TextInput,
     ArrayField,
     TabbedForm,
-    NumberInput,
+    ReferenceArrayInput,
     FormTab
 } from 'react-admin';
 
@@ -96,17 +95,9 @@ export const ClubEdit = (props) => (
                 </ArrayField>
             </FormTab>
             <FormTab label="rooms">
-                <ArrayField
-                    source="rooms"
-                >
-                    <Datagrid>
-                        <TextInput source="id" />
-                        <NumberInput source="capacity" />
-                        <TextInput source="RoomNumber" />
-                        <TextInput source="About" />
-                        <TextInput source="Status" />
-                    </Datagrid>
-                </ArrayField>
+                <ReferenceArrayInput source="rooms" reference="rooms">
+                    <SelectArrayInput optionText="name" />
+                </ReferenceArrayInput>
             </FormTab>
         </TabbedForm>
     </Edit>
