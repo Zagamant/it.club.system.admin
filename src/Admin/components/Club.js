@@ -11,7 +11,6 @@ import {
     SelectInput,
     Show,
     SimpleForm,
-    SingleFieldList,
     Tab,
     TabbedShowLayout,
     TextField,
@@ -19,7 +18,9 @@ import {
     ArrayField,
     TabbedForm,
     NumberInput,
-    FormTab
+    FormTab,
+    ReferenceManyField,
+    SingleFieldList
 } from 'react-admin';
 
 export const ClubList = (props) => (
@@ -28,6 +29,11 @@ export const ClubList = (props) => (
             <TextField source="id" />
             <TextField source="title" />
             <TextField source="status" />
+            <ReferenceManyField label="Rooms" reference="rooms" target="id">
+                <SingleFieldList>
+                    <ChipField source="RoomNumber" />
+                </SingleFieldList>
+            </ReferenceManyField>
             <EditButton />
             <DeleteButton />
         </Datagrid>
@@ -61,14 +67,7 @@ export const ClubShow = (props) => (
                         <NumberField source="capacity" />
                         <TextField source="RoomNumber" />
                         <TextField source="About" />
-                        <SelectInput
-                            source="Status"
-                            choices={[
-                                { id: 'pendingStart', name: 'Pending start' },
-                                { id: 'open', name: 'Open' },
-                                { id: 'closed', name: 'Closed' },
-                            ]}
-                        />
+                        <TextField source="Status" />
                         <EditButton />
                     </Datagrid>
                 </ArrayField>
@@ -85,16 +84,16 @@ export const ClubEdit = (props) => (
                 <TextInput source="title" />
                 <TextInput source="status" />
             </FormTab >
-            <FormTab  label="permissions">
-                <ArrayField
-                    source="permissions"
-                >
-                    <Datagrid>
-                        <TextField source="id" />
-                        <TextField source="name" />
-                    </Datagrid>
-                </ArrayField>
-            </FormTab>
+            {/*<FormTab  label="permissions">*/}
+            {/*    <ArrayInput*/}
+            {/*        source="permissions"*/}
+            {/*    >*/}
+            {/*        <SimpleFormIterator>*/}
+            {/*            <TextField source="id" />*/}
+            {/*            <TextField source="name" />*/}
+            {/*        </SimpleFormIterator>*/}
+            {/*    </ArrayInput>*/}
+            {/*</FormTab>*/}
             <FormTab label="rooms">
                 <ArrayField
                     source="rooms"
@@ -104,7 +103,15 @@ export const ClubEdit = (props) => (
                         <NumberInput source="capacity" />
                         <TextInput source="RoomNumber" />
                         <TextInput source="About" />
-                        <TextInput source="Status" />
+
+                        <SelectInput
+                            source="Status"
+                            choices={[
+                                { id: 'pendingStart', name: 'Pending start' },
+                                { id: 'open', name: 'Open' },
+                                { id: 'closed', name: 'Closed' },
+                            ]}
+                        />
                     </Datagrid>
                 </ArrayField>
             </FormTab>

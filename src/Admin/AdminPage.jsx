@@ -4,7 +4,7 @@ import {UserCreate, UserEdit, UserList} from './components/User';
 import CustomDataProvider from "./components/CustomDataProvider";
 import CustomAuthProvider from "./components/CustomAuthProvider";
 import {ClubCreate, ClubEdit, ClubList, ClubShow} from "./components/Club";
-import {EditGuesser} from "ra-ui-materialui";
+import {RoomCreate, RoomEdit, RoomList, RoomShow} from "./components/Room";
 
 const dataProvider = CustomDataProvider(process.env.REACT_APP_API_URL);
 
@@ -27,6 +27,13 @@ function AdminPage() {
                 edit={ClubEdit}
                 create={ClubCreate}
                 show={ClubShow}
+            />
+            <Resource
+                name="rooms"
+                list={RoomList}
+                edit={RoomEdit}
+                create={RoomCreate}
+                show={RoomShow}
             />
 
         </Admin>

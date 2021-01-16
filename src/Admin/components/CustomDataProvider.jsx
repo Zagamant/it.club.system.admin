@@ -71,6 +71,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 options.data = params.data;
                 break;
             case DELETE:
+                debugger;
                 options.url = `${apiUrl}/${resource}/${params.id}`;
                 options.method = 'DELETE';
                 break;
@@ -127,10 +128,13 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         }
         // simple-rest doesn't handle filters on DELETE route, so we fallback to calling DELETE n times instead
         if (type === DELETE_MANY) {
+            const myOptions = {};
+            myOptions.headers = authHeader();
+            myOptions.method = 'DELETE';
             return Promise.all(
                 params.ids.map((id) => {
-                    debugger;
-                    return userService.delete(id);
+                    myOptions.url = `${apiUrl}/${resource}/${id}`;
+                    axios(myOptions);
                 })
             ).then((responses) => ({
                 data: responses.map((response) => response.data),
@@ -138,7 +142,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         }
 
         const { options } = convertDataRequestToHTTP(type, resource, params);
-        const header = authHeader();
         return axios(options).then((response) =>
             convertHTTPResponse(response, type, resource, params)
         );
