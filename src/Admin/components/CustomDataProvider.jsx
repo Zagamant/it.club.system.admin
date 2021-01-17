@@ -11,7 +11,6 @@ import {
     UPDATE_MANY,
 } from 'react-admin';
 import axios from 'axios';
-import { userService } from '../../services/user.service';
 import { authHeader } from '../../helpers';
 
 /**
@@ -33,7 +32,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
      * @returns {Object} { url, options } The HTTP request parameters
      */
     const convertDataRequestToHTTP = (type, resource, params) => {
-        debugger
         const options = {};
         options.headers = authHeader();
         switch (type) {
@@ -72,7 +70,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 options.data = params.data;
                 break;
             case DELETE:
-                debugger;
                 options.url = `${apiUrl}/${resource}/${params.id}`;
                 options.method = 'DELETE';
                 break;
@@ -119,10 +116,14 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
     return (type, resource, params) => {
         // simple-rest doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
         if (type === UPDATE_MANY) {
+            const myOptions = {};
+            myOptions.headers = authHeader();
+            myOptions.method = 'PUT';
             return Promise.all(
-                params.ids.map((id) =>
-                    userService.update(params.data)
-                )
+                params.ids.map((id) => {
+                    myOptions.data = params.data;
+                    return axios(myOptions);
+                })
             ).then((responses) => ({
                 data: responses.map((response) => response.data),
             }));
@@ -135,7 +136,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             return Promise.all(
                 params.ids.map((id) => {
                     myOptions.url = `${apiUrl}/${resource}/${id}`;
-                    axios(myOptions);
+                    return axios(myOptions);
                 })
             ).then((responses) => ({
                 data: responses.map((response) => response.data),

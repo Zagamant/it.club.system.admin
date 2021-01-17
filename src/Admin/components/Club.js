@@ -1,27 +1,32 @@
 import React from 'react';
 import {
+    ArrayField,
     ChipField,
     Create,
     Datagrid,
     DeleteButton,
     Edit,
     EditButton,
+    FormTab,
     List,
     NumberField,
+    NumberInput, ReferenceArrayInput, SelectArrayInput,
     SelectInput,
     Show,
     SimpleForm,
+    SingleFieldList,
     Tab,
+    TabbedForm,
     TabbedShowLayout,
     TextField,
     TextInput,
-    ArrayField,
-    TabbedForm,
-    NumberInput,
-    FormTab,
-    ReferenceManyField,
-    SingleFieldList
 } from 'react-admin';
+
+const ClubStatuses = [
+    { id: 'PendingStart', name: 'Pending start' },
+    { id: 'Open', name: 'Open' },
+    { id: 'Closed', name: 'Closed' },
+];
 
 export const ClubList = (props) => (
     <List {...props}>
@@ -29,11 +34,11 @@ export const ClubList = (props) => (
             <TextField source="id" />
             <TextField source="title" />
             <TextField source="status" />
-            <ReferenceManyField label="Rooms" reference="rooms" target="id">
+            <ArrayField source="rooms">
                 <SingleFieldList>
-                    <ChipField source="RoomNumber" />
+                    <ChipField source="roomNumber" />
                 </SingleFieldList>
-            </ReferenceManyField>
+            </ArrayField>
             <EditButton />
             <DeleteButton />
         </Datagrid>
@@ -49,9 +54,7 @@ export const ClubShow = (props) => (
                 <TextField source="status" />
             </Tab>
             <Tab label="permissions">
-                <ArrayField
-                    source="permissions"
-                >
+                <ArrayField source="permissions">
                     <Datagrid>
                         <TextField source="id" />
                         <TextField source="name" />
@@ -59,15 +62,13 @@ export const ClubShow = (props) => (
                 </ArrayField>
             </Tab>
             <Tab label="rooms">
-                <ArrayField
-                    source="rooms"
-                >
+                <ArrayField source="rooms">
                     <Datagrid>
                         <TextField source="id" />
                         <NumberField source="capacity" />
-                        <TextField source="RoomNumber" />
-                        <TextField source="About" />
-                        <TextField source="Status" />
+                        <TextField source="roomNumber" />
+                        <TextField source="about" />
+                        <TextField source="status" />
                         <EditButton />
                     </Datagrid>
                 </ArrayField>
@@ -79,41 +80,14 @@ export const ClubShow = (props) => (
 export const ClubEdit = (props) => (
     <Edit {...props}>
         <TabbedForm>
-            <FormTab  label="Summary">
+            <FormTab label="Summary">
                 <TextInput disabled source="id" />
                 <TextInput source="title" />
-                <TextInput source="status" />
-            </FormTab >
-            {/*<FormTab  label="permissions">*/}
-            {/*    <ArrayInput*/}
-            {/*        source="permissions"*/}
-            {/*    >*/}
-            {/*        <SimpleFormIterator>*/}
-            {/*            <TextField source="id" />*/}
-            {/*            <TextField source="name" />*/}
-            {/*        </SimpleFormIterator>*/}
-            {/*    </ArrayInput>*/}
-            {/*</FormTab>*/}
-            <FormTab label="rooms">
-                <ArrayField
-                    source="rooms"
-                >
-                    <Datagrid>
-                        <TextInput source="id" />
-                        <NumberInput source="capacity" />
-                        <TextInput source="RoomNumber" />
-                        <TextInput source="About" />
-
-                        <SelectInput
-                            source="Status"
-                            choices={[
-                                { id: 'pendingStart', name: 'Pending start' },
-                                { id: 'open', name: 'Open' },
-                                { id: 'closed', name: 'Closed' },
-                            ]}
-                        />
-                    </Datagrid>
-                </ArrayField>
+                <SelectInput
+                    source="status"
+                    choices={ClubStatuses}
+                    optionText={(choice) => `${choice.name}`}
+                />
             </FormTab>
         </TabbedForm>
     </Edit>
@@ -121,16 +95,15 @@ export const ClubEdit = (props) => (
 
 export const ClubCreate = (props) => (
     <Create {...props}>
-        <SimpleForm>
+        <SimpleForm redirect="list">
             <TextInput source="title" />
             <SelectInput
-                source="Status"
-                choices={[
-                    { id: 'pendingStart', name: 'Pending start' },
-                    { id: 'open', name: 'Open' },
-                    { id: 'closed', name: 'Closed' },
-                ]}
+                source="status"
+                choices={ClubStatuses}
+                optionText={(choice) => `${choice.name}`}
+                defaultValue={ClubStatuses[0].id}
             />
+
         </SimpleForm>
     </Create>
 );

@@ -10,8 +10,8 @@ import {
     NumberField,
     NumberInput,
     ReferenceArrayInput,
-    ReferenceField,
     ReferenceInput,
+    SelectField,
     SelectInput,
     Show,
     SimpleForm,
@@ -22,17 +22,21 @@ import {
     TextInput,
 } from 'react-admin';
 
+const RoomStatuses = [
+    { id: 'PendingStart', name: 'Pending start' },
+    { id: 'Open', name: 'Open' },
+    { id: 'Closed', name: 'Closed' },
+];
+
 export const RoomList = (props) => (
     <List {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
-            <ReferenceField source="club" reference="clubs">
-                <TextField source="title" />
-            </ReferenceField>
+            <TextField source="club.title" label="Club" />
             <TextField source="roomNumber" />
             <NumberField source="capacity" />
             <TextField source="about" />
-            <TextField source="status" />
+            <SelectField source="status" choices={RoomStatuses} />
             <EditButton />
         </Datagrid>
     </List>
@@ -66,30 +70,40 @@ export const RoomEdit = (props) => (
                 <TextInput source="roomNumber" />
                 <NumberInput source="capacity" />
                 <TextInput source="about" />
-                <TextInput source="status" />
+                <SelectInput
+                    source="status"
+                    choices={RoomStatuses}
+                    optionText={(choice) => `${choice.name}`}
+                />
             </FormTab>
-            <FormTab label="Groups">
-                <ReferenceArrayInput
-                    label="Club"
-                    source="Groups"
-                    reference="Groups"
-                >
-                    <SelectInput optionText="title" />
-                </ReferenceArrayInput>
-            </FormTab>
+            {/*<FormTab label="Groups">*/}
+            {/*    <ReferenceArrayInput*/}
+            {/*        label="Groups"*/}
+            {/*        source="groups"*/}
+            {/*        reference="groups"*/}
+            {/*    >*/}
+            {/*        <SelectInput optionText="id" />*/}
+            {/*    </ReferenceArrayInput>*/}
+            {/*</FormTab>*/}
         </TabbedForm>
     </Edit>
 );
 
 export const RoomCreate = (props) => (
     <Create {...props}>
-        <SimpleForm>
+        <SimpleForm redirect="list">
             <TextInput source="RoomNumber" />
             <NumberInput source="Capacity" />
             <TextInput source="About" />
             <ReferenceInput label="Club" source="ClubId" reference="clubs">
-                <SelectInput optionText="Title" />
+                <SelectInput optionText="title" />
             </ReferenceInput>
+            <SelectInput
+                source="status"
+                choices={RoomStatuses}
+                optionText={(choice) => `${choice.name}`}
+                defaultValue={RoomStatuses[0].id}
+            />
         </SimpleForm>
     </Create>
 );

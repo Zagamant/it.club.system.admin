@@ -1,10 +1,11 @@
 import React from 'react';
 import {Admin, Resource} from 'react-admin';
-import {UserCreate, UserEdit, UserList} from './components/User';
+import {UserCreate, UserEdit, UserList, UserShow} from './components/User';
 import CustomDataProvider from "./components/CustomDataProvider";
 import CustomAuthProvider from "./components/CustomAuthProvider";
 import {ClubCreate, ClubEdit, ClubList, ClubShow} from "./components/Club";
 import {RoomCreate, RoomEdit, RoomList, RoomShow} from "./components/Room";
+import {GroupCreate, GroupEdit, GroupList, GroupShow} from "./components/Group";
 
 const dataProvider = CustomDataProvider(process.env.REACT_APP_API_URL);
 
@@ -18,6 +19,7 @@ function AdminPage() {
             <Resource
                 name="users"
                 list={UserList}
+                show={UserShow}
                 edit={UserEdit}
                 create={UserCreate}
             />
@@ -34,6 +36,13 @@ function AdminPage() {
                 edit={RoomEdit}
                 create={RoomCreate}
                 show={RoomShow}
+            />
+            <Resource
+                name="groups"
+                list={GroupList}
+                edit={GroupEdit}
+                create={GroupCreate}
+                show={GroupShow}
             />
 
         </Admin>

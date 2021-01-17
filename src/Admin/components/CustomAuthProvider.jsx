@@ -6,7 +6,6 @@ export default {
 
     return userService.login(username, password)
             .then(response => {
-                debugger;
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(response.statusText);
                 }
