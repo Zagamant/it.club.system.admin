@@ -83,6 +83,10 @@ export const ClubEdit = (props) => (
             <FormTab label="Summary">
                 <TextInput disabled source="id" />
                 <TextInput source="title" />
+                <TextInput source="city" />
+                <TextInput source="country" />
+                <TextInput source="addressLine" />
+
                 <SelectInput
                     source="status"
                     choices={ClubStatuses}
@@ -97,6 +101,9 @@ export const ClubCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
             <TextInput source="title" />
+            <TextInput source="city" />
+            <TextInput source="country" />
+            <TextInput source="addressLine" />
             <SelectInput
                 source="status"
                 choices={ClubStatuses}
