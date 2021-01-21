@@ -38,6 +38,7 @@ export const GroupList = (props) => (
     <List {...props}>
         <Datagrid rowClick="show">
             <TextField source="id" />
+            <TextField source="title" />
             <TextField source="lessonsPerWeek" />
             <UrlField source="onlineConversationLink" />
             <TextField source="messenger" />
@@ -55,6 +56,7 @@ export const GroupShow = (props) => (
         <TabbedShowLayout>
             <Tab label="Summary">
                 <TextField source="id" />
+                <TextField source="title" />
                 <TextField source="lessonsPerWeek" />
                 <UrlField source="onlineConversationLink" />
                 <TextField source="messenger" />
@@ -98,6 +100,7 @@ export const GroupEdit = (props) => (
             <FormTab label="Summary">
                 <TextInput disabled source="id" />
                 <TextInput source="roomNumber" />
+                <TextInput source="title" />
                 <NumberInput source="capacity" />
                 <TextInput source="about" />
                 <SelectInput
@@ -123,6 +126,7 @@ export const GroupCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
             <TextInput source="RoomNumber" />
+            <TextInput source="Title" />
             <NumberInput source="Capacity" />
             <TextInput source="About" />
             <ReferenceInput label="Club" source="ClubId" reference="clubs">

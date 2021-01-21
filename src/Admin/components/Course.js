@@ -1,46 +1,32 @@
 import React from 'react';
 import {
-    ArrayField,
-    ChipField,
     Create,
     Datagrid,
     DeleteButton,
     Edit,
     EditButton,
     FormTab,
+    TabbedShowLayout,
     List,
-    NumberField,
-    NumberInput, ReferenceArrayInput,
+    Tab,
+    NumberInput,
+    ReferenceManyField,
     SelectInput,
     Show,
     SimpleForm,
-    SingleFieldList,
-    Tab,
     TabbedForm,
-    TabbedShowLayout,
     TextField,
     TextInput,
-    UrlField,
-    SelectArrayInput
+    UrlField, DateField, SelectField,
 } from 'react-admin';
-
-const ClubStatuses = [
-    { id: 'pendingStart', name: 'Pending start' },
-    { id: 'open', name: 'Open' },
-    { id: 'closed', name: 'Closed' },
-];
 
 export const CourseList = (props) => (
     <List {...props}>
         <Datagrid rowClick="show">
             <TextField source="id" />
             <TextField source="title" />
-            <TextField source="status" />
-            <ArrayField source="rooms">
-                <SingleFieldList>
-                    <ChipField source="roomNumber" />
-                </SingleFieldList>
-            </ArrayField>
+            <TextField source="about" />
+            <UrlField source="manualLink" optionText="Link" />
             <EditButton />
             <DeleteButton />
         </Datagrid>
@@ -49,12 +35,30 @@ export const CourseList = (props) => (
 
 export const CourseShow = (props) => (
     <Show {...props}>
-        <Datagrid>
-            <TextField source="id"/>
-            <TextField source="title"/>
-            <TextField source="about"/>
-            <UrlField source="manualLink"/>
-        </Datagrid>
+        <TabbedShowLayout>
+            <Tab label="Summary">
+                <TextField source="id" />
+                <TextField source="title" />
+                <TextField source="about" />
+                <UrlField source="manualLink" optionText="Link" />
+            </Tab>
+            <Tab label="Groups">
+                <ReferenceManyField source="groups" target="courseId">
+                    <Datagrid>
+                        <TextField source="id" />
+                        <TextField source="title" />
+                        <TextField source="lessonsPerWeek" />
+                        <UrlField source="onlineConversationLink" />
+                        <TextField source="messenger" />
+                        <DateField source="startDate" />
+                        <DateField source="endDate" />
+                        <DateField source="capacity" />
+                        <TextField source="status" />
+                        <EditButton />
+                    </Datagrid>
+                </ReferenceManyField>
+            </Tab>
+        </TabbedShowLayout>
     </Show>
 );
 
@@ -67,21 +71,6 @@ export const CourseEdit = (props) => (
                 <TextInput source="about" />
                 <TextInput source="manualLink" />
             </FormTab>
-            <FormTab label="Groups">
-                <ReferenceArrayInput source="groups">
-                    <Datagrid>
-                        <TextInput source="id" />
-                        <NumberInput source="LessonsPerWeek" />
-                        <TextInput source="RoomNumber" />
-                        <TextInput source="About" />
-                        <SelectInput
-                            source="status"
-                            choices={ClubStatuses}
-                            optionText={(choice) => `${choice.name}`}
-                        />
-                    </Datagrid>
-                </ReferenceArrayInput>
-            </FormTab>
         </TabbedForm>
     </Edit>
 );
@@ -90,13 +79,8 @@ export const CourseCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
             <TextInput source="title" />
-            <SelectInput
-                source="status"
-                choices={ClubStatuses}
-                optionText={(choice) => `${choice.name}`}
-                defaultValue={ClubStatuses[0].id}
-            />
-
+            <TextInput source="about" />
+            <TextInput source="manualLink" />
         </SimpleForm>
     </Create>
 );

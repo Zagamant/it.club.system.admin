@@ -6,6 +6,7 @@ import CustomAuthProvider from "./components/CustomAuthProvider";
 import {ClubCreate, ClubEdit, ClubList, ClubShow} from "./components/Club";
 import {RoomCreate, RoomEdit, RoomList, RoomShow} from "./components/Room";
 import {GroupCreate, GroupEdit, GroupList, GroupShow} from "./components/Group";
+import {CourseCreate, CourseEdit, CourseList, CourseShow} from "./components/Course";
 
 const dataProvider = CustomDataProvider(process.env.REACT_APP_API_URL);
 
@@ -43,6 +44,13 @@ function AdminPage() {
                 edit={GroupEdit}
                 create={GroupCreate}
                 show={GroupShow}
+            />
+            <Resource
+                name="courses"
+                list={CourseList}
+                edit={CourseEdit}
+                create={CourseCreate}
+                show={CourseShow}
             />
 
         </Admin>
