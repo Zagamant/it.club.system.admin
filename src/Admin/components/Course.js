@@ -2,22 +2,21 @@ import React from 'react';
 import {
     Create,
     Datagrid,
+    DateField,
     DeleteButton,
     Edit,
     EditButton,
     FormTab,
-    TabbedShowLayout,
     List,
-    Tab,
-    NumberInput,
     ReferenceManyField,
-    SelectInput,
     Show,
     SimpleForm,
+    Tab,
     TabbedForm,
+    TabbedShowLayout,
     TextField,
     TextInput,
-    UrlField, DateField, SelectField,
+    UrlField,
 } from 'react-admin';
 
 export const CourseList = (props) => (
