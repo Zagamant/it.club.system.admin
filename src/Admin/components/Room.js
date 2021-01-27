@@ -9,7 +9,6 @@ import {
     List,
     NumberField,
     NumberInput,
-    ReferenceArrayInput,
     ReferenceInput,
     SelectField,
     SelectInput,

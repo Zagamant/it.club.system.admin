@@ -10,7 +10,6 @@ import {
     FormTab,
     List,
     NumberField,
-    NumberInput, ReferenceArrayInput, SelectArrayInput,
     SelectInput,
     Show,
     SimpleForm,

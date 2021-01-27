@@ -62,7 +62,7 @@ function AdminPage() {
                 show={CostsShow}
             />
             <Resource
-                name="event"
+                name="events"
                 list={EventList}
                 edit={EventEdit}
                 create={EventCreate}

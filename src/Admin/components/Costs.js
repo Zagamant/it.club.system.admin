@@ -21,7 +21,10 @@ export const CostsList = (props) => (
             <TextField source="id" />
             <TextField source="about" />
             <DateField source="date" />
-            <TextField source="cost" />
+            <TextField source="cost" options={{
+                style: 'currency',
+                currency: 'EUR',
+            }} />
             <EditButton />
             <DeleteButton />
         </Datagrid>
