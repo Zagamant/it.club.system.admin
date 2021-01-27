@@ -9,6 +9,7 @@ import {GroupCreate, GroupEdit, GroupList, GroupShow} from "./components/Group";
 import {CourseCreate, CourseEdit, CourseList, CourseShow} from "./components/Course";
 import {CostsCreate, CostsEdit, CostsList, CostsShow} from "./components/Costs";
 import {EventCreate, EventEdit, EventList, EventShow} from "./components/Event";
+import { PaymentCreate, PaymentEdit, PaymentList, PaymentShow } from './components/Payment';
 
 const dataProvider = CustomDataProvider(process.env.REACT_APP_API_URL);
 
@@ -67,6 +68,14 @@ function AdminPage() {
                 edit={EventEdit}
                 create={EventCreate}
                 show={EventShow}
+            />
+
+            <Resource
+                name="payment"
+                list={PaymentList}
+                edit={PaymentEdit}
+                create={PaymentCreate}
+                show={PaymentShow}
             />
 
         </Admin>
