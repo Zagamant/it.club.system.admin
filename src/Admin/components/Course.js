@@ -25,7 +25,7 @@ export const CourseList = (props) => (
             <TextField source="id" />
             <TextField source="title" />
             <TextField source="about" />
-            <UrlField source="manualLink" optionText="Link" />
+            <TextField source="manualLink"/>
             <EditButton />
             <DeleteButton />
         </Datagrid>
@@ -39,7 +39,7 @@ export const CourseShow = (props) => (
                 <TextField source="id" />
                 <TextField source="title" />
                 <TextField source="about" />
-                <UrlField source="manualLink" optionText="Link" />
+                <UrlField source="manualLink"/>
             </Tab>
             <Tab label="Groups">
                 <ReferenceManyField source="groups" target="courseId">

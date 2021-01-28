@@ -1,22 +1,21 @@
 import React from 'react';
 import {
-    List,
-    Show,
-    Edit,
     Create,
-    EditButton,
-    TabbedShowLayout,
-    FormTab,
-    SimpleForm,
-    TabbedForm,
-    Tab,
     Datagrid,
     DateField,
-    TextField,
-    UrlField,
+    DateInput,
+    Edit,
+    EditButton,
+    FormTab,
+    List,
     SelectInput,
+    Show,
+    SimpleForm,
+    Tab,
+    TabbedForm,
+    TabbedShowLayout,
+    TextField,
     TextInput,
-    DateInput
 } from 'react-admin';
 
 const GroupStatuses = [
@@ -31,6 +30,7 @@ export const GroupList = (props) => (
         <Datagrid rowClick="show">
             <TextField source="id" />
             <TextField source="title" />
+            <TextField source="course.id" />
             <TextField source="room.number" />
             <TextField source="lessonsPerWeek" />
             <TextField source="onlineConversationLink" />
@@ -56,7 +56,6 @@ export const GroupShow = (props) => (
                 <DateField source="startDate" />
                 <DateField source="endDate" />
                 <TextField source="capacity" />
-
             </Tab>
         </TabbedShowLayout>
     </Show>

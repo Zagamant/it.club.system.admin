@@ -2,8 +2,6 @@ import React from 'react';
 import {
     Create,
     Datagrid,
-    DateField,
-    DateInput,
     DeleteButton,
     Edit,
     EditButton,
@@ -12,7 +10,10 @@ import {
     SimpleForm,
     SimpleShowLayout,
     TextField,
-    TextInput
+    TextInput,
+    SelectInput,
+    ReferenceField,
+    ReferenceInput
 } from 'react-admin';
 
 export const PaymentList = (props) => (
@@ -44,7 +45,11 @@ export const PaymentShow = (props) => (
     <Show {...props}>
         <SimpleShowLayout>
             <TextField source="id" />
-            <TextField source="user.username" />
+
+            <ReferenceField label="User" reference="users" source="userId">
+                <TextField source="name" />
+            </ReferenceField>
+
             <TextField source="September" />
             <TextField source="October" />
             <TextField source="November" />
@@ -66,7 +71,9 @@ export const PaymentEdit = (props) => (
     <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
-            //TODO <TextInput source="user.username" />
+            <ReferenceField label="User" reference="users" source="userId">
+                <TextField source="name" />
+            </ReferenceField>
             <TextInput source="September" />
             <TextInput source="October" />
             <TextInput source="November" />
@@ -87,7 +94,9 @@ export const PaymentEdit = (props) => (
 export const PaymentCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
-            //TODO <TextInput source="user.username" />
+            <ReferenceInput label="user" source="userId" reference="users">
+                <SelectInput optionText={record => `${record.name} ${record.surname}`} />
+            </ReferenceInput>
             <TextInput source="September" />
             <TextInput source="October" />
             <TextInput source="November" />

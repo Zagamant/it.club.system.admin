@@ -13,6 +13,7 @@ import {
     SimpleShowLayout,
     TextField,
     TextInput,
+    DateTimeInput
 } from 'react-admin';
 
 export const EventList = (props) => (
@@ -42,7 +43,7 @@ export const EventEdit = (props) => (
         <SimpleForm>
             <TextInput disabled source="id" />
             <TextInput source="about" />
-            <DateInput source="dateTime" showTime/>
+            <DateTimeInput source="dateTime" />
         </SimpleForm>
     </Edit>
 );
@@ -52,7 +53,7 @@ export const EventCreate = (props) => (
         <SimpleForm redirect="list">
             <TextInput source="about" />
             <TextInput source="about" />
-            <DateInput source="dateTime" showTime/>
+            <DateTimeInput source="dateTime" />
         </SimpleForm>
     </Create>
 );
