@@ -3,7 +3,6 @@ import {
     Create,
     Datagrid,
     DateField,
-    DateInput,
     DeleteButton,
     Edit,
     EditButton,

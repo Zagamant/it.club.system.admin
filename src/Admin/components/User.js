@@ -9,6 +9,7 @@ import {
     Edit,
     EditButton,
     EmailField,
+    FormTab,
     FunctionField,
     ImageField,
     ImageInput,
@@ -16,8 +17,9 @@ import {
     PasswordInput,
     RichTextField,
     Show,
-    SimpleForm,
-    SimpleShowLayout,
+    Tab,
+    TabbedForm,
+    TabbedShowLayout,
     TextField,
     TextInput,
 } from 'react-admin';
@@ -36,7 +38,13 @@ export const UserList = (props) => (
                 source="birthDay"
                 options={{ year: 'numeric', month: 'long', day: 'numeric' }}
             />
-            <TextField source="address" />
+            <FunctionField
+                render={(render) =>
+                    render === null
+                        ? `not defined`
+                        : `${render.country},\n\r ${render.city},\n\r ${render.addressLine}`
+                }
+            />
             <RichTextField source="additionalInfo" />
             <TextField source="userName" />
             <EmailField source="email" />
@@ -50,61 +58,84 @@ export const UserList = (props) => (
 
 export const UserShow = (props) => (
     <Show {...props}>
-        <SimpleShowLayout rowClick="edit">
-            <TextField source="id" />
-            <FunctionField
-                label="Name"
-                render={(record) =>
-                    `${record.name} ${record.middleName} ${record.surname}`
-                }
-            />
-            <DateField
-                source="birthDay"
-                options={{ year: 'numeric', month: 'long', day: 'numeric' }}
-            />
-            <TextField source="address" />
-            <RichTextField source="additionalInfo" />
-            <TextField source="userName" />
-            <EmailField source="email" />
-            <TextField source="phoneNumber" />
-            <BooleanField source="lockoutEnabled" />
-            <ImageField source="photos" />
-            <EditButton />
-        </SimpleShowLayout>
+        <TabbedShowLayout rowClick="edit">
+            <Tab label="Summary">
+                <TextField source="id" />
+                <FunctionField
+                    label="Name"
+                    render={(record) =>
+                        `${record.name} ${record.middleName} ${record.surname}`
+                    }
+                />
+                <DateField
+                    source="birthDay"
+                    options={{ year: 'numeric', month: 'long', day: 'numeric' }}
+                />
+
+                <RichTextField source="additionalInfo" />
+                <TextField source="userName" />
+                <EmailField source="email" />
+                <TextField source="phoneNumber" />
+                <BooleanField source="lockoutEnabled" />
+                <ImageField source="photos" />
+                <EditButton />
+            </Tab>
+            <Tab label="Address">
+                <TextField source="country" />
+                <TextField source="city" />
+                <TextField source="addressLine" />
+            </Tab>
+        </TabbedShowLayout>
     </Show>
 );
 
 export const UserEdit = (props) => (
     <Edit {...props}>
-        <SimpleForm>
-            <TextInput disabled source="id" />
-            <TextInput source="name" />
-            <TextInput source="middleName" />
-            <TextInput source="surname" />
-            <PasswordInput source="password" />
-            <DateInput source="birthDay" label="Birth Day"/>
-            <TextInput source="address" />
-            <TextInput source="additionalInfo" />
-            <TextInput source="userName" />
-            <TextInput source="email" />
-            <TextInput source="phoneNumber" />
-            <BooleanInput source="lockoutEnabled" />
-            <ImageInput source="photos" />
-        </SimpleForm>
+        <TabbedForm redirect="list">
+            <FormTab label="Summary">
+                <TextInput disabled source="id" />
+                <TextInput source="name" />
+                <TextInput source="newPassword" />
+                <TextInput source="middleName" />
+                <TextInput source="surname" />
+                <PasswordInput source="password" />
+                <DateInput source="birthDay" label="Birth Day" />
+                <TextInput source="additionalInfo" />
+                <TextInput source="userName" />
+                <TextInput source="email" />
+                <TextInput source="phoneNumber" />
+                <BooleanInput source="lockoutEnabled" />
+                <ImageInput source="photos" />
+            </FormTab>
+
+            <FormTab label="Address">
+                <TextInput source="country" />
+                <TextInput source="city" />
+                <TextInput source="addressLine" />
+            </FormTab>
+        </TabbedForm>
     </Edit>
 );
 
 export const UserCreate = (props) => (
     <Create {...props}>
-        <SimpleForm redirect="list">
-            <TextInput source="name" />
-            <TextInput source="middleName" />
-            <TextInput source="surname" />
-            <TextInput source="password" />
-            <DateInput source="birthDay" />
-            <TextInput source="userName" />
-            <TextInput source="email" />
-            <TextInput source="phoneNumber" />
-        </SimpleForm>
+        <TabbedForm redirect="list">
+            <FormTab label="Summary">
+                <TextInput source="userName" />
+                <TextInput source="newPassword" />
+                <TextInput source="name" />
+                <TextInput source="middleName" />
+                <TextInput source="surname" />
+                <TextInput source="password" />
+                <DateInput source="birthDay" />
+                <TextInput source="email" />
+                <TextInput source="phoneNumber" />
+            </FormTab>
+            <FormTab label="Address">
+                <TextInput source="country" />
+                <TextInput source="city" />
+                <TextInput source="addressLine" />
+            </FormTab>
+        </TabbedForm>
     </Create>
 );
