@@ -8,7 +8,7 @@ import {
     FormTab,
     List,
     NumberField,
-    NumberInput,
+    NumberInput, ReferenceField,
     ReferenceInput,
     SelectField,
     SelectInput,
@@ -31,7 +31,9 @@ export const RoomList = (props) => (
     <List {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
-            <TextField source="club.title" label="Club" />
+            <ReferenceField reference="clubs" source="clubId">
+                <TextField source="title" label="Club" />
+            </ReferenceField>
             <TextField source="roomNumber" />
             <NumberField source="capacity" />
             <TextField source="about" />
@@ -46,6 +48,9 @@ export const RoomShow = (props) => (
         <TabbedShowLayout>
             <Tab label="Summary">
                 <TextField source="id" />
+                <ReferenceField reference="clubs" source="clubId">
+                    <TextField source="title" label="Club" />
+                </ReferenceField>
                 <TextField source="RoomNumber" />
                 <TextField source="status" />
             </Tab>
@@ -54,7 +59,9 @@ export const RoomShow = (props) => (
             </Tab>
             <Tab label="Groups">
                 <ArrayField source="Groups">
-                    <Datagrid></Datagrid>
+                    <Datagrid>
+
+                    </Datagrid>
                 </ArrayField>
             </Tab>
         </TabbedShowLayout>
@@ -94,7 +101,7 @@ export const RoomCreate = (props) => (
             <TextInput source="RoomNumber" />
             <NumberInput source="Capacity" />
             <TextInput source="About" />
-            <ReferenceInput label="Club" source="ClubId" reference="clubs">
+            <ReferenceInput label="Club" source="clubId" reference="clubs">
                 <SelectInput optionText="title" />
             </ReferenceInput>
             <SelectInput
