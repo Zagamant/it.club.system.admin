@@ -95,10 +95,9 @@ export const UserEdit = (props) => (
             <FormTab label="Summary">
                 <TextInput disabled source="id" />
                 <TextInput source="name" />
-                <TextInput source="newPassword" />
                 <TextInput source="middleName" />
                 <TextInput source="surname" />
-                <PasswordInput source="password" />
+                <TextInput source="newPassword" />
                 <DateInput source="birthDay" label="Birth Day" />
                 <TextInput source="additionalInfo" />
                 <TextInput source="userName" />
@@ -122,11 +121,10 @@ export const UserCreate = (props) => (
         <TabbedForm redirect="list">
             <FormTab label="Summary">
                 <TextInput source="userName" />
-                <TextInput source="newPassword" />
+                <TextInput source="password" required />
                 <TextInput source="name" />
                 <TextInput source="middleName" />
                 <TextInput source="surname" />
-                <TextInput source="password" />
                 <DateInput source="birthDay" />
                 <TextInput source="email" />
                 <TextInput source="phoneNumber" />

@@ -75,7 +75,7 @@ export const PaymentEdit = (props) => (
     <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
-            <ReferenceInput label="user" source="userId" reference="users">
+            <ReferenceInput label="User" source="userId" reference="users">
                 <SelectInput optionText={record => `${record.name} ${record.surname}`} />
             </ReferenceInput>
             <TextInput source="september" />
@@ -98,8 +98,8 @@ export const PaymentEdit = (props) => (
 export const PaymentCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
-            <ReferenceInput label="user" source="userId" reference="users">
-                <SelectInput optionText={record => `${record.name} ${record.surname}`} />
+            <ReferenceInput label="User" source="userId" reference="users">
+                <SelectInput optionText={record => `${record.name} ${record.middleName} ${record.surname}`} />
             </ReferenceInput>
             <TextInput source="September" />
             <TextInput source="October" />

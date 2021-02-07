@@ -64,8 +64,10 @@ export const AgreementEdit = (props) => (
         <SimpleForm>
             <TextInput disabled source='id' />
 
-            <ReferenceInput label="Club" source="clubId" reference="clubs">
-                <SelectInput optionText="title" />
+            <ReferenceInput label="User" source="userId" reference="users">
+                <SelectInput optionText={(record) =>
+                    `${record.name} ${record.middleName} ${record.surname}`
+                } />
             </ReferenceInput>
 
             <ReferenceInput label="Course" source="courseId" reference="courses">
@@ -80,7 +82,7 @@ export const AgreementEdit = (props) => (
 export const AgreementCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect='list'>
-            <ReferenceInput label="user" source="userId" reference="users">
+            <ReferenceInput label="User" source="userId" reference="users">
                 <SelectInput optionText={record => `${record.name} ${record.middleName} ${record.surname}`} />
             </ReferenceInput>
 

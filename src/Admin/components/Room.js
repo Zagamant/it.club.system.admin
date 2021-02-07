@@ -1,14 +1,17 @@
 import React from 'react';
 import {
     ArrayField,
+    AutocompleteInput,
     Create,
     Datagrid,
     Edit,
     EditButton,
+    Filter,
     FormTab,
     List,
     NumberField,
-    NumberInput, ReferenceField,
+    NumberInput,
+    ReferenceField,
     ReferenceInput,
     SelectField,
     SelectInput,
@@ -27,8 +30,22 @@ const RoomStatuses = [
     { id: 'Closed', name: 'Closed' },
 ];
 
+const RoomFilter = (props) => (
+    <Filter {...props}>
+        <TextInput label="Search" source="q" alwaysOn />
+        <TextInput label="Room number" source="roomNumber" />
+        <ReferenceInput
+            label="Club"
+            source="clubId"
+            reference="clubs"
+        >
+            <AutocompleteInput optionText="title" />
+        </ReferenceInput>
+    </Filter>
+);
+
 export const RoomList = (props) => (
-    <List {...props}>
+    <List {...props} filters={<RoomFilter />}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <ReferenceField reference="clubs" source="clubId">
@@ -59,9 +76,7 @@ export const RoomShow = (props) => (
             </Tab>
             <Tab label="Groups">
                 <ArrayField source="Groups">
-                    <Datagrid>
-
-                    </Datagrid>
+                    <Datagrid></Datagrid>
                 </ArrayField>
             </Tab>
         </TabbedShowLayout>

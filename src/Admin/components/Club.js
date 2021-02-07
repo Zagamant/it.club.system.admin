@@ -9,7 +9,7 @@ import {
     EditButton,
     FormTab,
     List,
-    NumberField,
+    NumberField, ReferenceManyField,
     SelectInput,
     Show,
     SimpleForm,
@@ -33,11 +33,16 @@ export const ClubList = (props) => (
             <TextField source="id" />
             <TextField source="title" />
             <TextField source="status" />
-            <ArrayField source="rooms">
+            <ReferenceManyField label="Rooms" target="clubId" reference="rooms">
                 <SingleFieldList>
                     <ChipField source="roomNumber" />
                 </SingleFieldList>
-            </ArrayField>
+            </ReferenceManyField >
+            {/*<ArrayField source="rooms" >*/}
+            {/*    <SingleFieldList linkType={false}>*/}
+            {/*        <ChipField source="roomNumber" />*/}
+            {/*    </SingleFieldList>*/}
+            {/*</ArrayField>*/}
             <EditButton />
             <DeleteButton />
         </Datagrid>
@@ -61,7 +66,7 @@ export const ClubShow = (props) => (
                 </ArrayField>
             </Tab>
             <Tab label="rooms">
-                <ArrayField source="rooms">
+                <ReferenceManyField target="clubId" reference="rooms">
                     <Datagrid>
                         <TextField source="id" />
                         <NumberField source="capacity" />
@@ -70,7 +75,7 @@ export const ClubShow = (props) => (
                         <TextField source="status" />
                         <EditButton />
                     </Datagrid>
-                </ArrayField>
+                </ReferenceManyField>
             </Tab>
         </TabbedShowLayout>
     </Show>

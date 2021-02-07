@@ -6,8 +6,11 @@ import {
     DateInput,
     Edit,
     EditButton,
+    FormDataConsumer,
     FormTab,
     List,
+    ReferenceField,
+    ReferenceInput,
     SelectInput,
     Show,
     SimpleForm,
@@ -30,8 +33,14 @@ export const GroupList = (props) => (
         <Datagrid rowClick="show">
             <TextField source="id" />
             <TextField source="title" />
-            <TextField source="course.id" />
-            <TextField source="room.number" />
+            <ReferenceField reference="courses" source="courseId">
+                <TextField source="title" label="Course" />
+            </ReferenceField>
+            {/*<TextField source="course.id" />*/}
+            <ReferenceField reference="rooms" source="roomId">
+                <TextField source="number" label="Room Number" />
+            </ReferenceField>
+            {/*<TextField source="room.number" />*/}
             <TextField source="lessonsPerWeek" />
             <TextField source="onlineConversationLink" />
             <TextField source="messenger" />
@@ -50,6 +59,12 @@ export const GroupShow = (props) => (
             <Tab label="Summary">
                 <TextField source="id" />
                 <TextField source="title" />
+                <ReferenceField reference="courses" source="courseId">
+                    <TextField source="title" label="Course" />
+                </ReferenceField>
+                <ReferenceField reference="rooms" source="roomId">
+                    <TextField source="number" label="Room Number" />
+                </ReferenceField>
                 <TextField source="lessonsPerWeek" />
                 <TextField source="onlineConversationLink" />
                 <TextField source="messenger" />
@@ -67,6 +82,45 @@ export const GroupEdit = (props) => (
             <FormTab label="Summary">
                 <TextInput disabled source="id" />
                 <TextInput source="title" />
+
+                <ReferenceInput label="Club" source="clubId" reference="clubs">
+                    <SelectInput optionText="title" />
+                </ReferenceInput>
+
+                <FormDataConsumer>
+                    {({ formData, ...rest }) =>
+                        formData.clubId && (
+                            <ReferenceInput
+                                filter={{clubId: formData.clubId}}
+                                label="Room"
+                                source="roomId"
+                                reference="rooms"
+                            >
+                                <SelectInput
+                                    optionText={(record) =>
+                                        `${record.roomNumber}`
+                                    }
+                                />
+                                {/*<SelectInput optionText="roomNumber" />*/}
+                            </ReferenceInput>
+                        )
+                    }
+                </FormDataConsumer>
+
+                <ReferenceInput
+                    label="Course"
+                    source="courseId"
+                    reference="courses"
+                >
+                    <SelectInput optionText="title" />
+                </ReferenceInput>
+
+                {/*<ReferenceInput label="Room" source="roomId" reference="rooms"*/}
+                {/*                filterToQuery={searchText => ({clubId: searchText})}>*/}
+                {/*    <SelectInput optionText={record => `${record.roomNumber}`}/>*/}
+                {/*    /!*<SelectInput optionText="roomNumber" />*!/*/}
+                {/*</ReferenceInput>*/}
+
                 <TextInput source="lessonsPerWeek" />
                 <TextInput source="onlineConversationLink" />
                 <TextInput source="messenger" />
@@ -87,6 +141,16 @@ export const GroupCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
             <TextInput source="title" />
+            <ReferenceInput
+                label="Course"
+                source="courseId"
+                reference="courses"
+            >
+                <SelectInput optionText="title" />
+            </ReferenceInput>
+            <ReferenceInput label="Room" source="roomId" reference="rooms">
+                <SelectInput optionText="roomNumber" />
+            </ReferenceInput>
             <TextInput source="lessonsPerWeek" />
             <TextInput source="onlineConversationLink" />
             <TextInput source="messenger" />

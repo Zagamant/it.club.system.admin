@@ -1,8 +1,12 @@
 import React from 'react';
 import {Admin, Resource} from 'react-admin';
 import {UserCreate, UserEdit, UserList, UserShow} from './components/User';
-import CustomDataProvider from "./components/CustomDataProvider";
+
 import CustomAuthProvider from "./components/CustomAuthProvider";
+
+import CustomDataProvider from "./components/CustomDataProvider";
+//import CustomDataProvider from "./components/CustomDataProvider2";
+
 import {ClubCreate, ClubEdit, ClubList, ClubShow} from "./components/Club";
 import {RoomCreate, RoomEdit, RoomList, RoomShow} from "./components/Room";
 import {GroupCreate, GroupEdit, GroupList, GroupShow} from "./components/Group";

@@ -12,6 +12,7 @@ import {
 } from 'react-admin';
 import axios from 'axios';
 import { authHeader } from '../../helpers';
+import {stringify} from "query-string";
 
 /**
  * Maps react-admin queries to a REST API implemented
@@ -36,8 +37,22 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         options.headers = authHeader();
         switch (type) {
             case GET_LIST: {
+                // const { page, perPage } = params.pagination;
+                // options.url = `${apiUrl}/${resource}?page=${page}&pageSize=${perPage}`;
+                // options.method = 'GET';
+                // break;
+                const { field, order } = params.sort;
                 const { page, perPage } = params.pagination;
-                options.url = `${apiUrl}/${resource}?page=${page}&pageSize=${perPage}`;
+                let query = {
+                    sort: JSON.stringify([field, order]),
+                    range: JSON.stringify([
+                        (page - 1) * perPage,
+                        page * perPage - 1,
+                    ]),
+                    filter: JSON.stringify(params.filter),
+                };
+
+                options.url = `${apiUrl}/${resource}?${stringify(query)}`;
                 options.method = 'GET';
                 break;
             }
@@ -55,8 +70,19 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             }
             case GET_MANY_REFERENCE: {
+                const { field, order } = params.sort;
                 const { page, perPage } = params.pagination;
-                options.url = `${apiUrl}/${resource}?page=${page}&pageSize=${perPage}`;
+                let query = {
+                    sort: JSON.stringify([field, order]),
+                    [params.target]: params.id,
+                    range: JSON.stringify([
+                        (page - 1) * perPage,
+                        page * perPage - 1,
+                    ]),
+                    filter: JSON.stringify({[params.target]: params.id}),
+                };
+
+                options.url = `${apiUrl}/${resource}?${stringify(query)}`;
                 break;
             }
             case UPDATE:

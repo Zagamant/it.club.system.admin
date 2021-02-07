@@ -51,7 +51,6 @@ export const EventCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
             <TextInput source="about" />
-            <TextInput source="about" />
             <DateTimeInput source="dateTime" />
         </SimpleForm>
     </Create>
