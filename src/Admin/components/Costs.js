@@ -6,8 +6,8 @@ import {
     DateInput,
     DeleteButton,
     Edit,
-    EditButton,
-    List,
+    EditButton, FunctionField,
+    List, ReferenceField, ReferenceInput, SelectInput,
     Show,
     SimpleForm,
     SimpleShowLayout,
@@ -19,6 +19,9 @@ export const CostsList = (props) => (
     <List {...props}>
         <Datagrid rowClick="show">
             <TextField source="id" />
+            <ReferenceField label="Club" source="clubId" reference="clubs">
+                <FunctionField render={record => `${record.title}`} />
+            </ReferenceField>
             <TextField source="about" />
             <DateField source="date" />
             <TextField source="cost" options={{
@@ -35,6 +38,9 @@ export const CostsShow = (props) => (
     <Show {...props}>
         <SimpleShowLayout>
             <TextField source="id" />
+            <ReferenceField label="Club" source="clubId" reference="clubs">
+                <FunctionField render={record => `${record.title}`} />
+            </ReferenceField>
             <TextField source="about" />
             <DateField source="date" />
             <TextField source="cost" />
@@ -46,6 +52,10 @@ export const CostsEdit = (props) => (
     <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
+            <ReferenceInput label="Club" source="clubId" reference="clubs">
+                <SelectInput optionText="title"/>
+            </ReferenceInput>
+
             <TextInput source="about" />
             <DateInput source="date" />
             <TextInput source="cost" />
@@ -56,6 +66,9 @@ export const CostsEdit = (props) => (
 export const CostsCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
+            <ReferenceInput label="Club" source="clubId" reference="clubs">
+                <SelectInput optionText="title"/>
+            </ReferenceInput>
             <TextInput source="about" />
             <DateInput source="date" />
             <TextInput source="cost" />

@@ -21,9 +21,14 @@ export const PaymentList = (props) => (
     <List {...props}>
         <Datagrid rowClick="show">
             <TextField source="id" />
+            <ReferenceField label="Club" source="clubId" reference="clubs">
+                <FunctionField render={record => `${record.title}`} />
+            </ReferenceField>
             <ReferenceField label="User" source="userId" reference="users">
+
                 <FunctionField render={record => `${record.name} ${record.middleName} ${record.surname}`} />
             </ReferenceField>
+
             <TextField source="september" />
             <TextField source="october" />
             <TextField source="november" />
@@ -48,6 +53,9 @@ export const PaymentShow = (props) => (
     <Show {...props}>
         <SimpleShowLayout>
             <TextField source="id" />
+            <ReferenceField label="Club" source="clubId" reference="clubs">
+                <FunctionField render={record => `${record.title}`} />
+            </ReferenceField>
 
             <ReferenceField label="User" source="userId" reference="users">
                 <FunctionField render={record => `${record.name} ${record.middleName} ${record.surname}`} />
@@ -75,6 +83,10 @@ export const PaymentEdit = (props) => (
     <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
+            <ReferenceInput label="Club" source="clubId" reference="clubs">
+                <SelectInput optionText="title"/>
+            </ReferenceInput>
+
             <ReferenceInput label="User" source="userId" reference="users">
                 <SelectInput optionText={record => `${record.name} ${record.surname}`} />
             </ReferenceInput>
@@ -98,6 +110,10 @@ export const PaymentEdit = (props) => (
 export const PaymentCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
+            <ReferenceInput label="Club" source="clubId" reference="clubs">
+                <SelectInput optionText="title"/>
+            </ReferenceInput>
+
             <ReferenceInput label="User" source="userId" reference="users">
                 <SelectInput optionText={record => `${record.name} ${record.middleName} ${record.surname}`} />
             </ReferenceInput>
