@@ -31,7 +31,7 @@ export const UserList = (props) => (
             <FunctionField
                 label="Name"
                 render={(record) =>
-                    `${record.name} ${record.middleName} ${record.surname}`
+                    `${record.name ?? ""} ${record.middleName ?? ""} ${record.surname ?? ""}`
                 }
             />
             <DateField
