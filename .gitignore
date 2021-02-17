@@ -2,7 +2,9 @@
 
 .idea
 
+# cache
 .eslintcache
+.cache
 
 # dependencies
 /node_modules
