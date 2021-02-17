@@ -37,9 +37,16 @@ export const GroupList = (props) => (
                 <TextField source="title" label="Course" />
             </ReferenceField>
             {/*<TextField source="course.id" />*/}
+            <ReferenceField label="Club" reference="rooms" source="roomId">
+                <ReferenceField reference="clubs" source="clubId">
+                    <TextField source="title" />
+                </ReferenceField>
+            </ReferenceField>
+
             <ReferenceField reference="rooms" source="roomId">
                 <TextField source="number" label="Room Number" />
             </ReferenceField>
+
             {/*<TextField source="room.number" />*/}
             <TextField source="lessonsPerWeek" />
             <TextField source="onlineConversationLink" />
@@ -98,7 +105,7 @@ export const GroupEdit = (props) => (
                             >
                                 <SelectInput
                                     optionText={(record) =>
-                                        `${record.roomNumber}`
+                                        `${record.number}`
                                     }
                                 />
                                 {/*<SelectInput optionText="roomNumber" />*/}
@@ -149,7 +156,7 @@ export const GroupCreate = (props) => (
                 <SelectInput optionText="title" />
             </ReferenceInput>
             <ReferenceInput label="Room" source="roomId" reference="rooms">
-                <SelectInput optionText="roomNumber" />
+                <SelectInput optionText="number" />
             </ReferenceInput>
             <TextInput source="lessonsPerWeek" />
             <TextInput source="onlineConversationLink" />

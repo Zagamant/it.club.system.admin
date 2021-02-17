@@ -33,7 +33,7 @@ const RoomStatuses = [
 const RoomFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
-        <TextInput label="Room number" source="roomNumber" />
+        <TextInput label="Room number" source="number" />
         <ReferenceInput
             label="Club"
             source="clubId"
@@ -51,7 +51,7 @@ export const RoomList = (props) => (
             <ReferenceField reference="clubs" source="clubId">
                 <TextField source="title" label="Club" />
             </ReferenceField>
-            <TextField source="roomNumber" />
+            <TextField source="number" />
             <NumberField source="capacity" />
             <TextField source="about" />
             <SelectField source="status" choices={RoomStatuses} />
@@ -68,7 +68,7 @@ export const RoomShow = (props) => (
                 <ReferenceField reference="clubs" source="clubId">
                     <TextField source="title" label="Club" />
                 </ReferenceField>
-                <TextField source="RoomNumber" />
+                <TextField source="number" />
                 <TextField source="status" />
             </Tab>
             <Tab label="About">
@@ -88,7 +88,7 @@ export const RoomEdit = (props) => (
         <TabbedForm>
             <FormTab label="Summary">
                 <TextInput disabled source="id" />
-                <TextInput source="roomNumber" />
+                <TextInput source="number" />
                 <NumberInput source="capacity" />
                 <TextInput source="about" />
                 <SelectInput

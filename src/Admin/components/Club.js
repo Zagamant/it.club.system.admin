@@ -35,7 +35,7 @@ export const ClubList = (props) => (
             <TextField source="status" />
             <ReferenceManyField label="Rooms" target="clubId" reference="rooms">
                 <SingleFieldList>
-                    <ChipField source="roomNumber" />
+                    <ChipField source="number" />
                 </SingleFieldList>
             </ReferenceManyField >
             {/*<ArrayField source="rooms" >*/}
@@ -70,7 +70,7 @@ export const ClubShow = (props) => (
                     <Datagrid>
                         <TextField source="id" />
                         <NumberField source="capacity" />
-                        <TextField source="roomNumber" />
+                        <TextField source="number" />
                         <TextField source="about" />
                         <TextField source="status" />
                         <EditButton />
