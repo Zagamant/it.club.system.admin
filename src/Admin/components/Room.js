@@ -113,7 +113,7 @@ export const RoomEdit = (props) => (
 export const RoomCreate = (props) => (
     <Create {...props}>
         <SimpleForm redirect="list">
-            <TextInput source="RoomNumber" />
+            <TextInput source="number" />
             <NumberInput source="Capacity" />
             <TextInput source="About" />
             <ReferenceInput label="Club" source="clubId" reference="clubs">

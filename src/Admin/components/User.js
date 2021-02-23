@@ -14,7 +14,6 @@ import {
     ImageField,
     ImageInput,
     List,
-    PasswordInput,
     RichTextField,
     Show,
     Tab,
@@ -64,7 +63,7 @@ export const UserShow = (props) => (
                 <FunctionField
                     label="Name"
                     render={(record) =>
-                        `${record.name} ${record.middleName} ${record.surname}`
+                        `${record.name ?? ""} ${record.middleName ?? ""} ${record.surname ?? ""}`
                     }
                 />
                 <DateField

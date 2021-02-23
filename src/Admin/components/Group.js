@@ -8,9 +8,13 @@ import {
     EditButton,
     FormDataConsumer,
     FormTab,
+    FunctionField,
     List,
+    ReferenceArrayField,
+    ReferenceArrayInput,
     ReferenceField,
     ReferenceInput,
+    SelectArrayInput,
     SelectInput,
     Show,
     SimpleForm,
@@ -79,6 +83,22 @@ export const GroupShow = (props) => (
                 <DateField source="endDate" />
                 <TextField source="capacity" />
             </Tab>
+            <Tab label="Users">
+                <ReferenceArrayField reference="users" source="usersIds">
+                    <Datagrid>
+                        {/*<TextField source="Name"/>*/}
+                        <FunctionField
+                            label="Name"
+                            render={(record) =>
+                                `${record.name ?? ''} ${
+                                    record.middleName ?? ''
+                                } ${record.surname ?? ''}`
+                            }
+                        />
+                        <TextField source="about"/>
+                    </Datagrid>
+                </ReferenceArrayField>
+            </Tab>
         </TabbedShowLayout>
     </Show>
 );
@@ -90,25 +110,32 @@ export const GroupEdit = (props) => (
                 <TextInput disabled source="id" />
                 <TextInput source="title" />
 
-                <ReferenceInput label="Club" source="clubId" reference="clubs">
-                    <SelectInput optionText="title" />
-                </ReferenceInput>
+                <FormDataConsumer>
+                    {({ formData, ...rest }) =>
+                        formData.roomId && (
+                            <ReferenceInput
+                                label="Club"
+                                source="clubId"
+                                reference="clubs"
+                            >
+                                <SelectInput optionText="title" />
+                            </ReferenceInput>
+                        )
+                    }
+                </FormDataConsumer>
 
                 <FormDataConsumer>
                     {({ formData, ...rest }) =>
                         formData.clubId && (
                             <ReferenceInput
-                                filter={{clubId: formData.clubId}}
+                                filter={{ clubId: formData.clubId }}
                                 label="Room"
                                 source="roomId"
                                 reference="rooms"
                             >
                                 <SelectInput
-                                    optionText={(record) =>
-                                        `${record.number}`
-                                    }
+                                    optionText={(record) => `${record.number}`}
                                 />
-                                {/*<SelectInput optionText="roomNumber" />*/}
                             </ReferenceInput>
                         )
                     }
@@ -122,12 +149,6 @@ export const GroupEdit = (props) => (
                     <SelectInput optionText="title" />
                 </ReferenceInput>
 
-                {/*<ReferenceInput label="Room" source="roomId" reference="rooms"*/}
-                {/*                filterToQuery={searchText => ({clubId: searchText})}>*/}
-                {/*    <SelectInput optionText={record => `${record.roomNumber}`}/>*/}
-                {/*    /!*<SelectInput optionText="roomNumber" />*!/*/}
-                {/*</ReferenceInput>*/}
-
                 <TextInput source="lessonsPerWeek" />
                 <TextInput source="onlineConversationLink" />
                 <TextInput source="messenger" />
@@ -139,6 +160,18 @@ export const GroupEdit = (props) => (
                     choices={GroupStatuses}
                     optionText={(choice) => `${choice.name}`}
                 />
+            </FormTab>
+            <FormTab label="Users">
+                <ReferenceArrayInput source="usersIds" reference="users">
+                    <SelectArrayInput
+                        label="Name"
+                        optionText={(record) =>
+                            `${record.name ?? ''} ${record.middleName ?? ''} ${
+                                record.surname ?? ''
+                            }`
+                        }
+                    />
+                </ReferenceArrayInput>
             </FormTab>
         </TabbedForm>
     </Edit>
@@ -155,9 +188,28 @@ export const GroupCreate = (props) => (
             >
                 <SelectInput optionText="title" />
             </ReferenceInput>
-            <ReferenceInput label="Room" source="roomId" reference="rooms">
-                <SelectInput optionText="number" />
+
+            <ReferenceInput label="Club" source="clubId" reference="clubs">
+                <SelectInput optionText="title" />
             </ReferenceInput>
+
+            <FormDataConsumer>
+                {({ formData, ...rest }) =>
+                    formData.clubId && (
+                        <ReferenceInput
+                            filter={{ clubId: formData.clubId }}
+                            label="Room"
+                            source="roomId"
+                            reference="rooms"
+                        >
+                            <SelectInput
+                                optionText={(record) => `${record.number}`}
+                            />
+                        </ReferenceInput>
+                    )
+                }
+            </FormDataConsumer>
+
             <TextInput source="lessonsPerWeek" />
             <TextInput source="onlineConversationLink" />
             <TextInput source="messenger" />
