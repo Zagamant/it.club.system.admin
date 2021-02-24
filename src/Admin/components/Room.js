@@ -7,12 +7,12 @@ import {
     Edit,
     EditButton,
     Filter,
-    FormTab,
+    FormTab, FunctionField,
     List,
     NumberField,
-    NumberInput,
+    NumberInput, ReferenceArrayField, ReferenceArrayInput,
     ReferenceField,
-    ReferenceInput,
+    ReferenceInput, SelectArrayInput,
     SelectField,
     SelectInput,
     Show,
@@ -75,9 +75,18 @@ export const RoomShow = (props) => (
                 <TextField source="About" />
             </Tab>
             <Tab label="Groups">
-                <ArrayField source="Groups">
-                    <Datagrid></Datagrid>
-                </ArrayField>
+                <ReferenceArrayField reference="groups" source="groupIds">
+                    <Datagrid>
+                        {/*<TextField source="Name"/>*/}
+                        <FunctionField
+                            label="Group"
+                            render={(record) =>
+                                `${record.title ?? ''}`
+                            }
+                        />
+                        <TextField source="about"/>
+                    </Datagrid>
+                </ReferenceArrayField>
             </Tab>
         </TabbedShowLayout>
     </Show>
@@ -97,15 +106,17 @@ export const RoomEdit = (props) => (
                     optionText={(choice) => `${choice.name}`}
                 />
             </FormTab>
-            {/*<FormTab label="Groups">*/}
-            {/*    <ReferenceArrayInput*/}
-            {/*        label="Groups"*/}
-            {/*        source="groups"*/}
-            {/*        reference="groups"*/}
-            {/*    >*/}
-            {/*        <SelectInput optionText="id" />*/}
-            {/*    </ReferenceArrayInput>*/}
-            {/*</FormTab>*/}
+            <FormTab label="Groups">
+                <ReferenceArrayInput source="groupIds" reference="groups">
+                    <SelectArrayInput
+                        label="Group"
+                        optionText={(record) =>
+                            `${record.title ?? ''}`
+                        }
+
+                    />
+                </ReferenceArrayInput>
+            </FormTab>
         </TabbedForm>
     </Edit>
 );
