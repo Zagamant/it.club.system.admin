@@ -43,13 +43,22 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 // break;
                 const { field, order } = params.sort;
                 const { page, perPage } = params.pagination;
+                // debugger;
+                // let query = {
+                //     sort: JSON.stringify([field, order]),
+                //     range: JSON.stringify([
+                //         (page - 1) * perPage,
+                //         page * perPage - 1,
+                //     ]),
+                //     filter: JSON.stringify(params.filter),
+                // };
+
                 let query = {
-                    sort: JSON.stringify([field, order]),
-                    range: JSON.stringify([
-                        (page - 1) * perPage,
-                        page * perPage - 1,
-                    ]),
-                    filter: JSON.stringify(params.filter),
+                    sort: `${field}+${order}`,
+                    page: page,
+                    pageSize: perPage,
+                    // search: params.filter.q,
+                    filter: JSON.stringify(params.filter)
                 };
 
                 options.url = `${apiUrl}/${resource}?${stringify(query)}`;
