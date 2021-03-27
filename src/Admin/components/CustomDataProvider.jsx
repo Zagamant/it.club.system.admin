@@ -57,7 +57,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                     sort: `${field}+${order}`,
                     page: page,
                     pageSize: perPage,
-                    // search: params.filter.q,
+                    search: params.filter.q ?? "",
                     filter: JSON.stringify(params.filter)
                 };
 
@@ -71,10 +71,11 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             }
             case GET_MANY: {
+                // debugger;
                 JSON.stringify({ id: params.ids });
                 let idStr = '';
                 params.ids.map((id) => idStr + `id=${id}`);
-                options.url = `${apiUrl}/${resource}?${idStr}}`;
+                options.url = `${apiUrl}/${resource}` + (idStr ? `?${idStr}` : "") ;
                 options.method = 'GET';
                 break;
             }
