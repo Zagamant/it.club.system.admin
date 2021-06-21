@@ -33,16 +33,16 @@ export const ClubList = (props) => (
             <TextField source="id" />
             <TextField source="title" />
             <TextField source="status" />
-            <ReferenceManyField label="Rooms" target="clubId" reference="rooms">
-                <SingleFieldList>
+            {/*<ReferenceManyField label="Rooms" target="clubId" reference="rooms">*/}
+            {/*    <SingleFieldList>*/}
+            {/*        <ChipField source="number" />*/}
+            {/*    </SingleFieldList>*/}
+            {/*</ReferenceManyField >*/}
+            <ArrayField source="rooms" >
+                <SingleFieldList linkType={false}>
                     <ChipField source="number" />
                 </SingleFieldList>
-            </ReferenceManyField >
-            {/*<ArrayField source="rooms" >*/}
-            {/*    <SingleFieldList linkType={false}>*/}
-            {/*        <ChipField source="roomNumber" />*/}
-            {/*    </SingleFieldList>*/}
-            {/*</ArrayField>*/}
+            </ArrayField>
             <EditButton />
             <DeleteButton />
         </Datagrid>

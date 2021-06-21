@@ -121,7 +121,7 @@ export const UserEdit = (props) => (
             </FormTab>
             <FormTab label='Roles'>
                 <ReferenceArrayInput
-                    source="roles"
+                    source="roleIds"
                     reference="roles"
                 >
                     <SelectArrayInput optionText="name"/>

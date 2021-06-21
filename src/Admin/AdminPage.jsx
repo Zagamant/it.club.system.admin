@@ -5,6 +5,12 @@ import CustomAuthProvider from './components/CustomAuthProvider';
 
 import CustomDataProvider from './components/CustomDataProvider';
 
+import UserIcon from '@material-ui/icons/People';
+import ClubIcon from '@material-ui/icons/Room';
+import GroupIcon from '@material-ui/icons/PeopleOutline';
+import MoneyIcon from '@material-ui/icons/Money';
+
+
 import { UserCreate, UserEdit, UserList, UserShow } from './components/User';
 import { ClubCreate, ClubEdit, ClubList, ClubShow } from './components/Club';
 import { RoomCreate, RoomEdit, RoomList, RoomShow } from './components/Room';
@@ -31,6 +37,7 @@ function AdminPage() {
                 show={UserShow}
                 edit={UserEdit}
                 create={UserCreate}
+                icon={UserIcon}
             />
             <Resource
                 name='roles'
@@ -44,6 +51,7 @@ function AdminPage() {
                 edit={ClubEdit}
                 create={ClubCreate}
                 show={ClubShow}
+                icon={ClubIcon}
             />
             <Resource
                 name='rooms'
@@ -58,6 +66,7 @@ function AdminPage() {
                 edit={GroupEdit}
                 create={GroupCreate}
                 show={GroupShow}
+                icon={GroupIcon}
             />
             <Resource
                 name='courses'
@@ -87,6 +96,7 @@ function AdminPage() {
                 edit={PaymentEdit}
                 create={PaymentCreate}
                 show={PaymentShow}
+                icon={MoneyIcon}
             />
 
             <Resource

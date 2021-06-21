@@ -80,6 +80,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             }
             case GET_MANY_REFERENCE: {
+                debugger;
                 const { field, order } = params.sort;
                 const { page, perPage } = params.pagination;
                 let query = {
@@ -127,14 +128,16 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         switch (type) {
             case GET_LIST:
             case GET_MANY_REFERENCE:
-                if (!json.hasOwnProperty('length')) {
+                let length = response.headers["content-range"];
+                if (!length) {
                     throw new Error(
                         'The numberOfElements property must be must be present in the Json response'
                     );
                 }
                 return {
                     data: json,
-                    total: parseInt(json.length, 10),
+                    // total: parseInt(json.length, 10),
+                    total: length,
                 };
             case CREATE:
                 return { data: { ...params.data, id: 0 } };
